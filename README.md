@@ -3,6 +3,10 @@ This folder and readme contains all information and files necessary to create a
 running instance of opal/agate/rserver/mongodb and datashield necessary on the
 [Docker](https://www.docker.com/) platform.
 
+The easiest way to follow this guide is to git clone, or download this directory onto the machine
+that will serve as the Docker server, and follow the guide with the command line interface
+open within this directory.
+
 ## Prerequisites
 As a prerequisite, the docker engine needs to be installed to create the docker
 instance and run it. The process is slightly different depending on the
@@ -64,8 +68,64 @@ sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual
 ```
 
 ## Actually installing Docker
+As a user with `sudo` privileges
+1. Update the `APT` package index
+  ```
+  sudo apt-get update
+  ```
+2. Install Docker and start the docker daemon
+  ```
+  sudo apt-get install docker-engine
+  sudo service docker start
+  ```
+3. Verify that `docker` has been installed correctly
+  ```
+  sudo docker run hello-world
+  ```
 
+### Configuring Docker
+#### Docker Group
+The docker daemon binds to a Unix socket instead of a TCP port. By default that
+Unix socket is owned by the user root and other users can access it with sudo.
+For this reason, docker daemon always runs as the root user.
 
+To avoid having to use sudo when you use the docker command, create a Unix group
+called docker and add users to it. When the docker daemon starts, it makes the
+ownership of the Unix socket read/writable by the docker group.
+
+***Warning:The docker group is equivalent to the root user or sudoers group. If this configuration is a problem please contact us***
+
+To create the docker group and add your user:
+1. Log into your machine as a user with `sudo` privileges.
+2. Create the `docker` group and add the user to the docker group.
+  ```
+  sudo groupadd docker
+  sudo usermod -aG docker $USER
+  ```
+3. Log out and log back in. This ensures your user is running with the correct permissions.
+4. Verify docker runs without `sudo`
+  ```
+  docker run hello-world
+  ```
+
+#### Adjusting the memory and swap accounting
+We adjust the memory and swap accounting of the system halt error messages on account of swap memory.
+
+To enable memory and swap on system using GNU GRUB (GNU GRand Unified Bootloader), do the following:
+
+1. Log into Ubuntu as a user with sudo privileges.
+2. Edit the /etc/default/grub file and set the `GRUB_CMDLINE_LINUX` value as follows:
+  ```
+  GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"
+  ```
+3. Save and close the file, then update `GRUB`
+  ```
+  sudo update-grub
+  ```
+4. Reboot the system so that the changes take effect
+
+#### (Optional) Enable UFW forwarding:
+Work in progress: TODO
 
 ## Docker Compose
 Assuming that docker has been correctly installed and configured the next step would be to install `docker-compose`
