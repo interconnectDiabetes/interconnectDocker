@@ -190,3 +190,6 @@ up of a data server for InterConnect! Once completed it is very easy to run
 more instances as the installation of docker has been completed.
 
 ## Testing the Container Installation
+TODO: Dont just point to SOP, and flesh out with test user, etc.
+
+To test the installation follow the SOP from 
