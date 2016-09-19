@@ -150,6 +150,43 @@ docker-compose --version
 
 This should say something like: `docker-compose version: 1.8.0`
 
-## Obiba Opal
-Obiba has created a docker image that includes all the necessary software and database configurations to jump right into running
-opal server, to which we can upload data and test datashield.
+## Running the Data Server
+There are two files in the directory that installs the correct software and configurations for
+the opal data server for use with DataShield: the `Dockerfile` and the `docker-compose.yml` files.
+
+### Changing the Opal Administrator Password
+Within both files one can change the `OPAL_ADMINISTRATOR_PASSWORD` environment variable from its default `password` to a better one.
+
+### (Optional): Change the application ports
+This is only useful to those who have ports 8843,8880,6611,6612,8844,8881 used by other applications running on the same server. If any ports are changed please reflect the changes in the `Dockerfile` (mainly 8843 and 8880).
+
+### Spinning up the opal container
+
+And then finally to get the docker machine to run, within the project directory
+(the interconnectDocker folder if you downloaded this directory) run:
+
+```
+docker-compose up
+```
+or
+```
+docker-compose up -d
+```
+to run the `up` process in the background. This reads the `docker-compose.yml` file
+and finds the necessary dependencies and spins up the necessary Docker containers
+for opal to function. The `docker-compose.yml` is dependent on the `Dockerfile`
+and vice versa, so please mimic any changes made such as the opal administrator password.
+
+Check the running docker instances with:
+
+```
+docker-compose ps
+```
+
+You will see the running docker containers, the applications they run, and which
+port they are available for access from. Test connecting to the opal server on
+port `8843` and upload your data. Congratulations you have completed the set
+up of a data server for InterConnect! Once completed it is very easy to run
+more instances as the installation of docker has been completed.
+
+## Testing the Container Installation
