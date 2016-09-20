@@ -3,21 +3,21 @@ This folder and readme contains all information and files necessary to create a
 running instance of opal/agate/rserver/mongodb and datashield necessary on the
 [Docker](https://www.docker.com/) platform.
 
-The easiest way to follow this guide is to git clone, or download this directory onto the machine
+The easiest way to follow this guide is to `git clone`, or download this directory onto the machine
 that will serve as the Docker server, and follow the guide with the command line interface
 open within this directory.
 
 ## Prerequisites
 As a prerequisite, the docker engine needs to be installed to create the docker
 instance and run it. The process is slightly different depending on the
-operating system it is installed on. This section will describe the installation on
+operating system it is installed on. This section will describe the installation of the docker engine on
 a Debian/Ubuntu 14.04 server on the command line interface. Installation instructions for Windows and Ubuntu can be found on
-the docker documentaion portal ([Windows](https://docs.docker.com/docker-for-windows/)
+the docker documentation portal ([Windows](https://docs.docker.com/docker-for-windows/)
 and [Mac](https://docs.docker.com/docker-for-mac/)). If docker is already installed please move onto the next
-section titled 'Docker Compose's
+section: 'Docker Compose'.
 
 ### Pre-Prerequisites
-Docker requires a 64-bit installation of the Ubuntu installation, and the linux kernel version must be higher than 3.10.
+Docker requires a 64-bit installation of the Ubuntu installation, and the Linux kernel version must be higher than 3.10.
 To check your current kernel version, use `uname -r`:
 
 ```
@@ -28,37 +28,37 @@ $ uname -r
 The apt sources have to be updated, so please:
 1. log into the command line with `sudo` privileges or as the `root` user.
 2. Update package information, ensure that `APT` works using the `https` protocol and `ca-certificates` is installed.
- ```
- sudo apt-get update
- sudo apt-get install apt-transport-https ca-certificates
- ```
+    ```
+    sudo apt-get update
+    sudo apt-get install apt-transport-https ca-certificates
+    ```
 3. Add the new GPG key
-  ```
-  sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-  ```
+    ```
+    sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
+    ```
 4. Open the `/etc/apt/sources.list.d/docker.list` on a text editor (if the file doesn't exist create it)
 5. Remove any existing entries and add in your Ubuntu operating system
-  - On Ubuntu Trusty 14.04 (LTS)
-  ```
-  deb https://apt.dockerproject.org/repo ubuntu-trusty main
-  ```
-  - Ubuntu Xenial 16.04 (LTS)
-  ```
-  deb https://apt.dockerproject.org/repo ubuntu-xenial main
-  ```
+    - On Ubuntu Trusty 14.04 (LTS)
+        ```
+        deb https://apt.dockerproject.org/repo ubuntu-trusty main
+        ```
+    - Ubuntu Xenial 16.04 (LTS)
+        ```
+        deb https://apt.dockerproject.org/repo ubuntu-xenial main
+        ```
 6. Save and close the file
 7. Update the `APT` package index.
-  ```
-  sudo apt-get update
-  ```
+    ```
+    sudo apt-get update
+    ```
 8. Purge any old repo if it exists
-  ```
-  sudo apt-get purge lxc-docker
-  ```
+    ```
+    sudo apt-get purge lxc-docker
+    ```
 9. Make a quick check that `APT` is pulling from the right repositoty (it can get silly at times)
-  ```
-  apt-cache policy docker-engine
-  ```
+    ```
+    apt-cache policy docker-engine
+    ```
 
 It is recommended that the `linux-image-extra-*` kernel packages are installed (for use of the `aufs` storage driver, which makes the docker containers more efficient in their use of processing and memory).
 
@@ -70,18 +70,18 @@ sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual
 ## Actually installing Docker
 As a user with `sudo` privileges
 1. Update the `APT` package index
-  ```
-  sudo apt-get update
-  ```
+    ```
+    sudo apt-get update
+    ```
 2. Install Docker and start the docker daemon
-  ```
-  sudo apt-get install docker-engine
-  sudo service docker start
-  ```
+    ```
+    sudo apt-get install docker-engine
+    sudo service docker start
+    ```
 3. Verify that `docker` has been installed correctly
-  ```
-  sudo docker run hello-world
-  ```
+    ```
+    sudo docker run hello-world
+    ```
 
 ### Configuring Docker
 #### Docker Group
@@ -98,15 +98,15 @@ ownership of the Unix socket read/writable by the docker group.
 To create the docker group and add your user:
 1. Log into your machine as a user with `sudo` privileges.
 2. Create the `docker` group and add the user to the docker group.
-  ```
-  sudo groupadd docker
-  sudo usermod -aG docker $USER
-  ```
+    ```
+    sudo groupadd docker
+    sudo usermod -aG docker $USER
+    ```
 3. Log out and log back in. This ensures your user is running with the correct permissions.
 4. Verify docker runs without `sudo`
-  ```
-  docker run hello-world
-  ```
+    ```
+    docker run hello-world
+    ```
 
 #### Adjusting the memory and swap accounting
 We adjust the memory and swap accounting of the system halt error messages on account of swap memory.
@@ -115,13 +115,13 @@ To enable memory and swap on system using GNU GRUB (GNU GRand Unified Bootloader
 
 1. Log into Ubuntu as a user with sudo privileges.
 2. Edit the /etc/default/grub file and set the `GRUB_CMDLINE_LINUX` value as follows:
-  ```
-  GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"
-  ```
+    ```
+    GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"
+    ```
 3. Save and close the file, then update `GRUB`
-  ```
-  sudo update-grub
-  ```
+    ```
+    sudo update-grub
+    ```
 4. Reboot the system so that the changes take effect
 
 #### (Optional) Enable UFW forwarding:
@@ -192,4 +192,4 @@ more instances as the installation of docker has been completed.
 ## Testing the Container Installation
 TODO: Dont just point to SOP, and flesh out with test user, etc.
 
-To test the installation follow the SOP from 
+To test the installation follow the SOP from
