@@ -28,34 +28,47 @@ $ uname -r
 The apt sources have to be updated, so please:
 1. log into the command line with `sudo` privileges or as the `root` user.
 2. Update package information, ensure that `APT` works using the `https` protocol and `ca-certificates` is installed.
+
     ```
     sudo apt-get update
     sudo apt-get install apt-transport-https ca-certificates
     ```
+
 3. Add the new GPG key
+
     ```
     sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
     ```
+
 4. Open the `/etc/apt/sources.list.d/docker.list` on a text editor (if the file doesn't exist create it)
 5. Remove any existing entries and add in your Ubuntu operating system
     - On Ubuntu Trusty 14.04 (LTS)
+
         ```
         deb https://apt.dockerproject.org/repo ubuntu-trusty main
         ```
+
     - Ubuntu Xenial 16.04 (LTS)
+
         ```
         deb https://apt.dockerproject.org/repo ubuntu-xenial main
         ```
+
 6. Save and close the file
 7. Update the `APT` package index.
+
     ```
     sudo apt-get update
     ```
+
 8. Purge any old repo if it exists
+
     ```
     sudo apt-get purge lxc-docker
     ```
+
 9. Make a quick check that `APT` is pulling from the right repositoty (it can get silly at times)
+
     ```
     apt-cache policy docker-engine
     ```
@@ -70,18 +83,24 @@ sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual
 ## Actually installing Docker
 As a user with `sudo` privileges
 1. Update the `APT` package index
+
     ```
     sudo apt-get update
     ```
+
 2. Install Docker and start the docker daemon
+
     ```
     sudo apt-get install docker-engine
     sudo service docker start
     ```
+
 3. Verify that `docker` has been installed correctly
+
     ```
     sudo docker run hello-world
     ```
+
 
 ### Configuring Docker
 #### Docker Group
@@ -98,15 +117,19 @@ ownership of the Unix socket read/writable by the docker group.
 To create the docker group and add your user:
 1. Log into your machine as a user with `sudo` privileges.
 2. Create the `docker` group and add the user to the docker group.
+
     ```
     sudo groupadd docker
     sudo usermod -aG docker $USER
     ```
+
 3. Log out and log back in. This ensures your user is running with the correct permissions.
-4. Verify docker runs without `sudo`
+4. Verify docker runs without `sudo`.0
+
     ```
     docker run hello-world
     ```
+
 
 #### Adjusting the memory and swap accounting
 We adjust the memory and swap accounting of the system halt error messages on account of swap memory.
@@ -115,13 +138,17 @@ To enable memory and swap on system using GNU GRUB (GNU GRand Unified Bootloader
 
 1. Log into Ubuntu as a user with sudo privileges.
 2. Edit the /etc/default/grub file and set the `GRUB_CMDLINE_LINUX` value as follows:
+
     ```
     GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"
     ```
+
 3. Save and close the file, then update `GRUB`
+
     ```
     sudo update-grub
     ```
+
 4. Reboot the system so that the changes take effect
 
 #### (Optional) Enable UFW forwarding:
@@ -133,17 +160,20 @@ which is a tool for defining multi-container Docker applications. **Note: Users 
 already have docker compose installed**
 
 Installing docker-compose must be performed as the `root` user.
+
 ```
 curl -L https://github.com/docker/compose/releases/download/1.8.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
 ```
 
 Executable permission have to be set to downloaded binary
+
 ```
 chmod +x /usr/local/bin/docker-compose
 ```
 
 Test the installation
+
 ```
 docker-compose --version
 ```
@@ -168,7 +198,9 @@ And then finally to get the docker machine to run, within the project directory
 ```
 docker-compose up
 ```
+
 or
+
 ```
 docker-compose up -d
 ```
