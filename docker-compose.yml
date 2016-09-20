@@ -11,7 +11,7 @@ opal:
   volumes:
   - /tmp/opal:/srv
 rserver:
-  image: obiba/opal-rserver:latest
+  image: obiba/opal-rserver:snapshot
   ports:
   - "6612:6312"
   - "6611:6311"
