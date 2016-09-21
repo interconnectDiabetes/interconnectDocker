@@ -233,7 +233,8 @@ Enter the application with the credentials
 * Password: <password you have chosen in previous steps,'password' if unchanged>
 
 This will display the Opal Dashboard from which several actions can be taken.
-1. Please click on the `Projects` tab on the top.
+
+1. Please click on the `Projects` tab on the top
 2. Then `+ Add Project`
 3. Within the add project pop up:
     * Provide 'test_project' for name
@@ -242,6 +243,7 @@ This will display the Opal Dashboard from which several actions can be taken.
     * Save
 
 Once the project has been created, we need to upload a dataset to test on, we will use the LifeLines dataset for this purpose.
+
 1. Click on the `test_project` that was just created.
 2. Once inside the 'Tables' pane, click on `Import`
 3. Within this dialog pane:
@@ -255,6 +257,7 @@ Once the project has been created, we need to upload a dataset to test on, we wi
 4. This will start the upload and automatic configuration of the data for use, this may take a few moments. Progress can be checked using the 'Tasks' icon in the left of the 'Tables' page.
 
 Once the dataset has been uploaded we can create a test user to interact with the LifeLines dataset through DataShield.
+
 1. As administrator, click on `Administration` in the top bar.
 2. Under 'Data Access' click on `Users and Groups`
 3. Click the `+ Add user` button choosing `Add user with password...` as the option:
@@ -273,6 +276,7 @@ Once the dataset has been uploaded we can create a test user to interact with th
 10. Add the 'test' user and save.
 
 We now have created a user who can use datashield to run analyses on the LifeLines table! We now can perform a quick test in R.
+
 1. Open RStudio
 2. Run this code snippet. **Please pay attention to the url variable and provide the correct IP address**
 
