@@ -124,7 +124,7 @@ To create the docker group and add your user:
     ```
 
 3. Log out and log back in. This ensures your user is running with the correct permissions.
-4. Verify docker runs without `sudo`.0
+4. Verify docker runs its demo without `sudo`.
 
     ```
     docker run hello-world
@@ -230,7 +230,7 @@ Visit the web interface of opal via on port 8843 (or the chosen port) on a web b
 Enter the application with the credentials
 
 * Username: administrator
-* Password: <password you have chosen in previous steps>
+* Password: <password you have chosen in previous steps,'password' if unchanged>
 
 This will display the Opal Dashboard from which several actions can be taken.
 1. Please click on the `Projects` tab on the top.
@@ -240,4 +240,73 @@ This will display the Opal Dashboard from which several actions can be taken.
     * Provide a title if you wish
     * Choose `opal_data (default storage)` as the database option
     * Save
-4.
+
+Once the project has been created, we need to upload a dataset to test on, we will use the LifeLines dataset for this purpose.
+1. Click on the `test_project` that was just created.
+2. Once inside the 'Tables' pane, click on `Import`
+3. Within this dialog pane:
+    * Choose SPSS under 'Data Format' and click next.
+    * Click Browse and Upload, then choose the LifeLines.sav that is included in the repository.
+    * Once uploaded, select the box for LifeLines.sav
+    * Click Next in the 'Select the source to be imported' page and Next again on the 'Configure data import' page
+    * Check the box next to LifeLines (see that it has 11 Unmodified Variables)
+    * Click Next through the pane
+    * Click Finish
+4. This will start the upload and automatic configuration of the data for use, this may take a few moments. Progress can be checked using the 'Tasks' icon in the left of the 'Tables' page.
+
+Once the dataset has been uploaded we can create a test user to interact with the LifeLines dataset through DataShield.
+1. As administrator, click on `Administration` in the top bar.
+2. Under 'Data Access' click on `Users and Groups`
+3. Click the `+ Add user` button choosing `Add user with password...` as the option:
+4. In the pop up create a user with name 'test' and password 'test1234' and save. The user 'test' should now be visible under 'Users'
+5. Now we have to allow the user to use DataSHIELD.
+
+1. As administrator, click on `Administration` in the top bar.
+2. Under 'Data Analysis' click on `DataSHIELD`
+3. Here one can see all the packages installed for DataShield, for this installation all packages necessary have been preinstalled and configured for Opal. However we need to add a user who can use this.
+4. In 'Permissions' at the bottom of the page. Click on `+ Add Permission` and `Add user permission...`. Enter the name 'test' and click Save
+5. Now the user test is allowed to make basic DataShield commands, however only to projects/tables where it is permitted to do so. Hence we have to allow 'test' to run DataShield commands on LifeLines.
+6. Click on `Projects` in the top bar.
+7. Click on `test_project`.
+8. Inside this 'Tables' page click on the Lifelines table.
+9. Under the 'Permissions' tab in test_project / Lifelines Click `+ Add Permission` and `Add user permission...`
+10. Add the 'test' user and save.
+
+We now have created a user who can use datashield to run analyses on the LifeLines table! We now can perform a quick test in R.
+1. Open RStudio
+2. Run this code snippet. **Please pay attention to the url variable and provide the correct IP address**
+
+    ```
+    library(opal)
+    library(dsBaseClient)
+    library(dsStatsClient)
+    library(dsGraphicsClient)
+    library(dsModellingClient)
+    library(metafor)
+
+
+    # assumes you have created a user called 'test' and pass: 'password'
+    # and given him datashield and table rights
+    server <- c( 'lifelines')
+    url <- c('https:<YOUR_IP_ADDRESS>:8843')
+    table <- c('test_project.LifeLines')
+    password <- c('test1234')
+    user <- c('test')
+    logindata_all <- data.frame(server,url,user,password, table)
+
+    opals <- datashield.login(logins=logindata_all, assign=TRUE)
+    ```
+
+3. Once logged in, find the mean of the weights using `ds.mean` which should result in a global average of roughly 76.19645
+
+    ```
+    ds.mean('D$GEWICHT')
+    ```
+
+4. Logout of opal and datashield with
+
+    ```
+    ds.logout(opals)
+    ```
+
+Congratulations you have a working installation of opal and datashield. Now you may upload your own dataset and participate in the InterConnect project!
