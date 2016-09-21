@@ -5,7 +5,6 @@ opal:
   - "8880:8080"
   links:
   - mongo
-  - agate
   - rserver
   environment:
   - OPAL_ADMINISTRATOR_PASSWORD=password
