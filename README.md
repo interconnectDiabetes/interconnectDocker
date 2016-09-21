@@ -222,6 +222,22 @@ up of a data server for InterConnect! Once completed it is very easy to run
 more instances as the installation of docker has been completed.
 
 ## Testing the Container Installation
-TODO: Dont just point to SOP, and flesh out with test user, etc.
+To test the installation, a test data set will be uploaded, and a user will be created to interact with the uploaded data through datashield.
 
-To test the installation follow the SOP from
+### Testing opal and uploading some data
+Visit the web interface of opal via on port 8843 (or the chosen port) on a web browser. If you have just started the container with `docker-compose up` this may take a while before opal is accessible.
+
+Enter the application with the credentials
+
+* Username: administrator
+* Password: <password you have chosen in previous steps>
+
+This will display the Opal Dashboard from which several actions can be taken.
+1. Please click on the `Projects` tab on the top.
+2. Then `+ Add Project`
+3. Within the add project pop up:
+    * Provide 'test_project' for name
+    * Provide a title if you wish
+    * Choose `opal_data (default storage)` as the database option
+    * Save
+4.
