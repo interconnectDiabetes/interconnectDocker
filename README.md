@@ -26,6 +26,7 @@ $ uname -r
 ```
 
 The apt sources have to be updated, so please:
+
 1. log into the command line with `sudo` privileges or as the `root` user.
 2. Update package information, ensure that `APT` works using the `https` protocol and `ca-certificates` is installed.
 
@@ -82,6 +83,7 @@ sudo apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual
 
 ## Actually installing Docker
 As a user with `sudo` privileges
+
 1. Update the `APT` package index
 
     ```
@@ -115,6 +117,7 @@ ownership of the Unix socket read/writable by the docker group.
 ***Warning:The docker group is equivalent to the root user or sudoers group. If this configuration is a problem please contact us***
 
 To create the docker group and add your user:
+
 1. Log into your machine as a user with `sudo` privileges.
 2. Create the `docker` group and add the user to the docker group.
 
