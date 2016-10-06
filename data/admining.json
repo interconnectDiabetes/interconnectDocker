@@ -1,0 +1,33 @@
+use admin
+db.createUser(
+  {
+    user: "opaladmin",
+    pwd: "opaladmin",
+    roles: [
+      {
+        "role" : "readWrite",
+        "db" : "opal_ids"
+      },
+      {
+        "role" : "dbAdmin",
+        "db" : "opal_ids"
+      },
+      {
+        "role" : "readWrite",
+        "db" : "opal_data"
+      },
+      {
+        "role" : "dbAdmin",
+        "db" : "opal_data"
+      },
+      {
+          "role": "clusterMonitor",
+          "db": "admin"
+      },
+      {
+          "role": "readAnyDatabase",
+          "db": "admin"
+      }
+    ]
+  }
+)
