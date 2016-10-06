@@ -183,6 +183,8 @@ docker-compose --version
 
 This should say something like: `docker-compose version: 1.8.0`
 
+Logout of root user to main `$USER`
+
 ## Running the Data Server
 There are two files in the directory that installs the correct software and configurations for
 the opal data server for use with DataShield: the `Dockerfile` and the `docker-compose.yml` files.

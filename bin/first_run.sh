@@ -12,7 +12,7 @@ if [ -n "$MONGO_PORT_27017_TCP_ADDR" ]
     	opal rest -o https://localhost:8443 -u administrator -p $OPAL_ADMINISTRATOR_PASSWORD -m POST /system/databases --content-type "application/json"
 	sed s/@mongo_host@/$MONGO_PORT_27017_TCP_ADDR/g /opt/opal/data/admining.json | \
 		sed s/@mongo_port@/$MONGO_PORT_27017_TCP_PORT/g | \
-		opal rest -o https://localhost:8443 -u administrator -p $OPAL_ADMINISTRATOR_PASSWORD -m POST /system/databases --contrent-type "application/json"
+		opal rest -o https://localhost:8443 -u administrator -p $OPAL_ADMINISTRATOR_PASSWORD -m POST /system/databases --content-type "application/json"
 fi
 
 # Configure datashield packages
