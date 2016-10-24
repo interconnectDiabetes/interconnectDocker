@@ -1,12 +1,3 @@
-rserver:
-  image: obiba/opal-rserver:latest
-  ports:
-  - "6612:6312"
-  - "6611:6311"
-mongo:
-  image: mongo
-  volumes:
-  - data:/data/db
 opal:
   image: obiba/opal:2.5
   ports:
@@ -18,4 +9,11 @@ opal:
   environment:
   - OPAL_ADMINISTRATOR_PASSWORD=password
   volumes:
-  - /tmp/opal:/srv
+  - ~/interconnectDocker/persistence:/srv
+rserver:
+  image: obiba/opal-rserver:latest
+  ports:
+  - "6612:6312"
+  - "6611:6311"
+mongo:
+  image: mongo
