@@ -17,3 +17,5 @@ rserver:
   - "6611:6311"
 mongo:
   image: mongo
+  volumes:
+  - ~interconnectDocker/mongoDB:/data/db
