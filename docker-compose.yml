@@ -18,4 +18,4 @@ rserver:
 mongo:
   image: mongo
   volumes:
-  - ~interconnectDocker/mongoDB:/data/db
+  - ~/interconnectDocker/mongoDB:/data/db
